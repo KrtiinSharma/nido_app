@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'payment_history.dart';
 
 void main() {
   runApp(const MyApp());
@@ -104,10 +105,11 @@ class DashboardScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildIconOption(Icons.payment, 'payment history'),
-                _buildIconOption(Icons.receipt, 'view invoice'),
-                _buildIconOption(Icons.account_balance, 'bank account'),
-                _buildIconOption(Icons.wallet, 'wallet'),
+                _buildIconOption(context, Icons.payment, 'payment history'),
+                _buildIconOption(context, Icons.receipt, 'view invoice'),
+                _buildIconOption(
+                    context, Icons.account_balance, 'bank account'),
+                _buildIconOption(context, Icons.wallet, 'wallet'),
               ],
             ),
             const SizedBox(height: 16),
@@ -248,13 +250,25 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildIconOption(IconData icon, String label) {
-    return Column(
-      children: [
-        Icon(icon, size: 36, color: Colors.redAccent),
-        const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-      ],
+  Widget _buildIconOption(BuildContext context, IconData icon, String label) {
+    return GestureDetector(
+      onTap: () {
+        if (label == 'payment history') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const PaymentHistoryScreen()),
+          );
+        }
+        // Add more conditions for other labels if needed
+      },
+      child: Column(
+        children: [
+          Icon(icon, size: 36, color: Colors.redAccent),
+          const SizedBox(height: 8),
+          Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+        ],
+      ),
     );
   }
 
