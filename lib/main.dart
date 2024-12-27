@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'bookings.dart';
+import 'account.dart';
 import 'payment_history.dart';
 
 void main() {
@@ -23,8 +25,46 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  int _selectedIndex = 0; // Default to Home
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    // Navigate to the corresponding screen
+    switch (index) {
+      case 0:
+        // Navigate to Home
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  const BookingsScreen()), // Navigate to Bookings
+        );
+        break;
+      case 2:
+        // Navigate to Play
+        break;
+      case 3:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  const AccountScreen()), // Navigate to Account
+        );
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -224,6 +264,8 @@ class DashboardScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.black,
         selectedItemColor: Colors.redAccent,
@@ -234,7 +276,7 @@ class DashboardScreen extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
+            icon: Icon(Icons.calendar_today),
             label: 'Bookings',
           ),
           BottomNavigationBarItem(
@@ -479,7 +521,7 @@ class DashboardScreen extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               const Text(
-                'Ashish Chanchalani',
+                'Krtiin Sharma',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
