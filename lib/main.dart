@@ -28,20 +28,6 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('dashboard', style: TextStyle(fontSize: 18)),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.card_giftcard),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.bar_chart),
-            onPressed: () {},
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -180,15 +166,8 @@ class DashboardScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Redeem Image
-                  Image.asset(
-                    'lib/images/redeem.png', // Path to your image
-                    height: 60, // Adjust as needed
-                    width: 60, // Adjust as needed
-                  ),
-                  const SizedBox(width: 16), // Spacing between image and text
-
                   // Text and Button
                   Expanded(
                     child: Column(
@@ -221,11 +200,20 @@ class DashboardScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ],
                     ),
+                  ),
+                  const SizedBox(width: 16), // Spacing between text and image
+
+                  // Redeem Image
+                  Image.asset(
+                    'lib/images/redeem.png', // Path to your image
+                    height: 60, // Adjust as needed
+                    width: 60, // Adjust as needed
                   ),
                 ],
               ),
@@ -274,11 +262,20 @@ class DashboardScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         TextButton(
           onPressed: () {},
-          child: Text(action, style: const TextStyle(color: Colors.redAccent)),
+          child: Text(
+            action,
+            style: const TextStyle(color: Colors.redAccent),
+          ),
         ),
       ],
     );
