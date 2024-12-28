@@ -16,7 +16,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   void _onItemTapped(int index) {
     if (index != _selectedIndex) {
-      Navigator.pop(context); // Go back to main screen
+      Navigator.pop(context);
     }
   }
 
@@ -33,6 +33,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
@@ -42,7 +44,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04), // Responsive padding
         child: Column(
           children: [
             const SizedBox(height: 20),
@@ -103,7 +105,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.redAccent,
-                minimumSize: const Size(double.infinity, 50),
+                minimumSize: Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
