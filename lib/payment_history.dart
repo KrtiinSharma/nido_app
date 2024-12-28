@@ -27,7 +27,8 @@ class PaymentHistoryScreen extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(
+            MediaQuery.of(context).size.width * 0.04), // Responsive padding
         children: [
           _buildPaymentItem('1,000',
               'win a month subscription from headspace...', '18th Mar', 'Cash'),
