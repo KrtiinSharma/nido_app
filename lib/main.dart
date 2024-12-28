@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'bookings.dart';
 import 'account.dart';
 import 'payment_history.dart';
@@ -18,8 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
-        scaffoldBackgroundColor:
-            Color(0xFF292929), // Set global background color
+        scaffoldBackgroundColor: const Color(0xFF292929),
       ),
       home: const DashboardScreen(),
     );
@@ -34,13 +34,12 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int _selectedIndex = 0; // Default to Home
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    // Navigate to the corresponding screen
     switch (index) {
       case 0:
         // Navigate to Home
@@ -48,9 +47,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  const BookingsScreen()), // Navigate to Bookings
+          MaterialPageRoute(builder: (context) => const BookingsScreen()),
         );
         break;
       case 2:
@@ -59,30 +56,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
       case 3:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  const AccountScreen()), // Navigate to Account
+          MaterialPageRoute(builder: (context) => const AccountScreen()),
         );
         break;
     }
   }
 
+  Future<void> _scanBarcode() async {
+    try {
+      final result = await BarcodeScanner.scan();
+      if (result.rawContent.isNotEmpty) {
+        // Handle the scanned barcode result
+        print('Scanned Barcode: ${result.rawContent}');
+        // You can navigate to another screen or show a dialog with the result
+      }
+    } catch (e) {
+      print('Error scanning barcode: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Play & Win Section
             playAndWinSection(),
-
-            // Coins Section
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(screenWidth * 0.04),
               decoration: BoxDecoration(
-                color: Color(0xFF363636),
+                color: const Color(0xFF363636),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -96,9 +103,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     child: const Center(
                       child: Image(
-                        image: AssetImage(
-                          'lib/images/cred.png',
-                        ),
+                        image: AssetImage('lib/images/cred.png'),
                         height: 40,
                         width: 40,
                       ),
@@ -132,8 +137,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Recommended for You Section
             const Text(
               'Recommended for you',
               style: TextStyle(
@@ -154,8 +157,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ],
             ),
             const SizedBox(height: 16),
-
-            // Upcoming Bookings Section
             _buildSectionTitle('Upcoming bookings', 'See all'),
             const SizedBox(height: 8),
             SingleChildScrollView(
@@ -177,8 +178,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Explore Section
             _buildSectionTitle('Explore', 'See all'),
             const SizedBox(height: 8),
             SingleChildScrollView(
@@ -200,10 +199,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Banner Section
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(screenWidth * 0.04),
               decoration: BoxDecoration(
                 color: Colors.grey[900],
                 borderRadius: BorderRadius.circular(12),
@@ -211,7 +208,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Text and Button
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,11 +228,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(24), // Rounded corners
+                              borderRadius: BorderRadius.circular(24),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 24), // Adjust padding
+                            padding: EdgeInsets.symmetric(
+                                vertical: 12, horizontal: screenWidth * 0.1),
                           ),
                           child: const Text(
                             'Redeem Now',
@@ -250,13 +245,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 16), // Spacing between text and image
-
-                  // Redeem Image
-                  Image.asset(
-                    'lib/images/redeem.png', // Path to your image
-                    height: 60, // Adjust as needed
-                    width: 60, // Adjust as needed
+                  const SizedBox(width: 16),
+                  GestureDetector(
+                    onTap: _scanBarcode,
+                    child: Image.asset(
+                      'lib/images/redeem.png',
+                      height: 60,
+                      width: 60,
+                    ),
                   ),
                 ],
               ),
@@ -470,37 +466,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Row(
           children: [
             const Spacer(), // Pushes "play & win" to the center
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.grey[850],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min, // Adjust size to content
-                children: [
-                  Image.asset(
-                    'lib/images/playandwin.png', // Replace with your icon path
-                    height: 22,
-                    width: 22,
-                  ),
-                  const SizedBox(width: 4),
-                  const Text(
-                    'play & win',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+            GestureDetector(
+              onTap: _scanBarcode,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.grey[850],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min, // Adjust size to content
+                  children: [
+                    Image.asset(
+                      'lib/images/playandwin.png', // Replace with your icon path
+                      height: 22,
+                      width: 22,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 4),
+                    const Text(
+                      'play & win',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const Spacer(), // Pushes barcode to the right
-            Image.asset(
-              'lib/images/barcode.png', // Path to your barcode image
-              height: 22, // Adjust height as needed
-              width: 22, // Adjust width as needed
+            GestureDetector(
+              onTap: _scanBarcode,
+              child: Image.asset(
+                'lib/images/barcode.png', // Path to your barcode image
+                height: 22, // Adjust height as needed
+                width: 22, // Adjust width as needed
+              ),
             ),
           ],
         ),
