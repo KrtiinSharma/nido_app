@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'bookings.dart';
 import 'account.dart';
 import 'payment_history.dart';
+import 'tour_details.dart';
 
 void main() {
   runApp(const MyApp());
@@ -95,9 +96,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     child: const Center(
                       child: Image(
-                        image: NetworkImage(
-                          'https://tse3.mm.bing.net/th?id=OIP.cR3ECYzCconJzm_HqMvg0wHaHa&pid=Api&P=0&h=180',
-                        ), // Replace this URL later with your actual coin image
+                        image: AssetImage(
+                          'lib/images/cred.png',
+                        ),
                         height: 40,
                         width: 40,
                       ),
@@ -164,13 +165,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _buildUpcomingCard(
                     'Cherry Blossom Group Tour 2025',
                     'Tomorrow at 2:30 PM',
-                    'lib/images/tower.png',
+                    'lib/images/eiffel-tower-night-stockcake_3.png',
                   ),
                   const SizedBox(width: 8),
                   _buildUpcomingCard(
-                    'Cliffside Hike Adventure',
+                    'Cherry Blossom Group Tour 2025',
                     'Next Week',
-                    'lib/images/cherry.png',
+                    'lib/images/eiffel-tower-night-stockcake_4.png',
                   ),
                 ],
               ),
@@ -187,13 +188,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _buildCard(
                     'Cherry Blossom Group Tour 2025',
                     'New Delhi',
-                    'lib/images/tower.png',
+                    'lib/images/eiffel-tower-night-stockcake_1.png',
                   ),
                   const SizedBox(width: 8),
                   _buildCard(
                     'City Lights Tour',
                     'New Delhi',
-                    'lib/images/cherry.png',
+                    'lib/images/eiffel-tower-night-stockcake_2.png',
                   ),
                 ],
               ),
@@ -338,56 +339,61 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildCard(String title, String location, String imagePath) {
-    return Container(
-      width: 200, // Fixed width for equal size
-      height: 250, // Fixed height for equal size
-      margin: const EdgeInsets.only(right: 8),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
-            ),
-            child: Image.asset(
-              imagePath,
-              height: 120, // Adjust height as needed
-              width: double.infinity,
-              fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TourDetailsScreen(
+              title: title,
+              location: location,
+              date: '2 Dec 2024', // Example date
+              duration: '1 hour', // Example duration
+              description: 'Flight from New Delhi to Tokyo - Narita Apt...',
+              price: '₹4,82,952 /Member\nTotal Price: ₹4,82,952',
+              imagePath: imagePath,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  location,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+        );
+      },
+      child: Container(
+        width: 200, // Fixed width for equal size
+        height: 250, // Fixed height for equal size
+        margin: const EdgeInsets.only(right: 8),
+        decoration: BoxDecoration(
+          color: Colors.grey[850],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+              child: Image.asset(
+                imagePath,
+                height: 120, // Adjust height as needed
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -403,14 +409,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              bottomLeft: Radius.circular(12),
-            ),
             child: Image.asset(
               imagePath,
-              height: 80, // Adjust height as needed
-              width: 80, // Adjust width as needed
+              height: 50, // Adjust height as needed
+              width: 50, // Adjust width as needed
               fit: BoxFit.cover,
             ),
           ),

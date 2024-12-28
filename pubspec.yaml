@@ -58,6 +58,14 @@ flutter:
     - lib/images/profile.jpeg
     - lib/images/playandwin.png
     - lib/images/barcode.png
+    - lib/images/cred.png
+    - lib/images/eiffel-tower-night-stockcake_1.png
+    - lib/images/eiffel-tower-night-stockcake_2.png
+    - lib/images/eiffel-tower-night-stockcake_3.png
+    - lib/images/eiffel-tower-night-stockcake_4.png
+    - lib/images/active.png
+    - lib/images/expired.png
+    - lib/images/bookings.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
