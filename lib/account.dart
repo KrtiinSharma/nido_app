@@ -3,6 +3,7 @@ import 'edit_profile.dart';
 import 'dart:io';
 import 'advanced_options.dart';
 import 'bookings.dart';
+import 'main.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -14,15 +15,16 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   String userName = 'Ashish Chanchalani';
   ImageProvider profileImage = const AssetImage('lib/images/profile.png');
-  int _selectedIndex = 3; // Set to 3 for "Me" tab
+  int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
     if (index != _selectedIndex) {
-      // Navigate to the corresponding screen
       switch (index) {
         case 0:
-          Navigator.pushReplacementNamed(
-              context, '/home'); // Update with your home route
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const MyApp()),
+          );
           break;
         case 1:
           Navigator.pushReplacement(
@@ -31,11 +33,9 @@ class _AccountScreenState extends State<AccountScreen> {
           );
           break;
         case 2:
-          Navigator.pushReplacementNamed(
-              context, '/play'); // Update with your play route
+          Navigator.pushReplacementNamed(context, '/play');
           break;
         case 3:
-          // Already on the Me screen
           break;
       }
     }
@@ -141,46 +141,45 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              _buildProfileSection(),
-              const SizedBox(height: 32),
-              _buildMenuItem(
-                Icons.group,
-                'members',
-                'find all your member profile here',
-              ),
-              _buildMenuItem(
-                Icons.headset_mic,
-                'support',
-                null,
-              ),
-              _buildMenuItem(
-                Icons.receipt,
-                'transaction history',
-                'find all your transactions here',
-              ),
-              _buildMenuItem(
-                Icons.headset_mic,
-                'support',
-                null,
-              ),
-              _buildMenuItem(
-                Icons.settings,
-                'Advanced',
-                null,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AdvancedOptionsScreen()),
-                  );
-                },
-              ),
-            ],
-          ),
+        padding: EdgeInsets.all(
+            MediaQuery.of(context).size.width * 0.04), // Responsive padding
+        child: Column(
+          children: [
+            _buildProfileSection(),
+            const SizedBox(height: 32),
+            _buildMenuItem(
+              Icons.group,
+              'members',
+              'find all your member profile here',
+            ),
+            _buildMenuItem(
+              Icons.headset_mic,
+              'support',
+              null,
+            ),
+            _buildMenuItem(
+              Icons.receipt,
+              'transaction history',
+              'find all your transactions here',
+            ),
+            _buildMenuItem(
+              Icons.headset_mic,
+              'support',
+              null,
+            ),
+            _buildMenuItem(
+              Icons.settings,
+              'Advanced',
+              null,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AdvancedOptionsScreen()),
+                );
+              },
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Container(
