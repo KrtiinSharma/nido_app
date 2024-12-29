@@ -67,6 +67,8 @@ flutter:
     - lib/images/active.png
     - lib/images/expired.png
     - lib/images/bookings.png
+    - lib/images/ShareFat.png
+    - lib/images/Vector.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
