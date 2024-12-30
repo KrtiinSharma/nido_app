@@ -23,173 +23,213 @@ class TourDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background image
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(bottom: Radius.circular(20)),
-                  child: Image.asset(
-                    imagePath,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: 300,
-                  ),
-                ),
-                Positioned(
-                  top: 20,
-                  left: 10,
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 20,
-                  right: 10,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.share,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Content area
-          Positioned(
-            top: 280,
-            left: 16,
-            right: 16,
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.7),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              expandedHeight: 300,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.zero,
+                background: Stack(
+                  fit: StackFit.expand,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    Image.asset(
+                      imagePath,
+                      fit: BoxFit.cover,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(0.5),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const Icon(Icons.location_on, color: Colors.white),
-                        const SizedBox(width: 4),
-                        Text(location,
-                            style: const TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        const Icon(Icons.calendar_today, color: Colors.white),
-                        const SizedBox(width: 4),
-                        Text(date, style: const TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        const Icon(Icons.access_time, color: Colors.white),
-                        const SizedBox(width: 4),
-                        Text(duration,
-                            style: const TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          '• Flight from New Delhi to Tokyo - Narita Apt | Departing on 20 Mar, 11:10 PM | Arriving on 21 Mar, 05:30 PM | Includes Check In Baggage',
-                          style: TextStyle(color: Colors.white, height: 1.5),
+                    Positioned(
+                      top: 20,
+                      left: 10,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
                         ),
-                        const SizedBox(height: 4),
-                        const Text(
-                          '• Airport to hotel in Tokyo',
-                          style: TextStyle(color: Colors.white, height: 1.5),
-                        ),
-                        const SizedBox(height: 4),
-                        const Text(
-                          '• When data is in the form of dates, such as schedules, timetables, prices calendar, lunar calendar. This component also supports Year/Month switch.',
-                          style: TextStyle(color: Colors.white, height: 1.5),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'About us',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        ClipOval(
-                          child: Image.asset(
-                            'lib/images/profile.jpeg',
-                            height: 40,
-                            width: 40,
-                            fit: BoxFit.cover,
-                          ),
+                    Positioned(
+                      top: 20,
+                      right: 10,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.share,
+                          color: Colors.white,
                         ),
-                        const SizedBox(width: 8),
-                        const Text(
-                          'Dunzo Tourism Pvt Ltd.',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      price,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                      ),
-                      child: const Text('Book'),
                     ),
                   ],
                 ),
               ),
             ),
+          ];
+        },
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(Icons.location_on, color: Colors.black),
+                    const SizedBox(width: 4),
+                    Text(location,
+                        style: const TextStyle(color: Color(0xFF868686))),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    const Icon(Icons.calendar_today, color: Colors.black),
+                    const SizedBox(width: 4),
+                    Text(date,
+                        style: const TextStyle(color: Color(0xFF868686))),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    const Icon(Icons.access_time, color: Colors.black),
+                    const SizedBox(width: 4),
+                    Text(duration,
+                        style: const TextStyle(color: Color(0xFF868686))),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  '• Flight from New Delhi to Tokyo - Narita Apt | Departing on 20 Mar, 11:10 PM | Arriving on 21 Mar, 05:30 PM | Includes Check In Baggage',
+                  style: const TextStyle(color: Color(0xFF868686), height: 1.5),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  '• Airport to hotel in Tokyo',
+                  style: TextStyle(color: Color(0xFF868686), height: 1.5),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  '• When data is in the form of dates, such as schedules, timetables, prices calendar, lunar calendar. This component also supports Year/Month switch.',
+                  style: TextStyle(color: Color(0xFF868686), height: 1.5),
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: Color(0xFF868686)),
+                const SizedBox(height: 8),
+                Text(
+                  'About us',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ClipOval(
+                      child: Image.asset(
+                        'lib/images/profile.jpeg',
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Dunzo Tourism Pvt Ltd.',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          const SizedBox(height: 4),
+                          GestureDetector(
+                            onTap: () {},
+                            child: const Text(
+                              'more',
+                              style: TextStyle(
+                                color: Color(0xFF1677FF),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const Divider(color: Color(0xFF868686)),
+                const SizedBox(height: 16),
+                Container(
+                  width: double.infinity,
+                  height: 75,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF3A3A3A),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          price,
+                          style: const TextStyle(
+                            fontSize: 16, // Adjusted text size
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFEB5757),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text('Book Now'),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
