@@ -150,38 +150,38 @@ class TourDetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ClipOval(
-                      child: Image.asset(
-                        'lib/images/profile.jpeg',
-                        height: 40,
-                        width: 40,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Dunzo Tourism Pvt Ltd.',
-                            style: TextStyle(color: Colors.black),
+                    Row(
+                      children: [
+                        ClipOval(
+                          child: Image.asset(
+                            'lib/images/profile.jpeg',
+                            height: 40,
+                            width: 40,
+                            fit: BoxFit.cover,
                           ),
-                          const SizedBox(height: 4),
-                          GestureDetector(
-                            onTap: () {},
-                            child: const Text(
-                              'more',
-                              style: TextStyle(
-                                color: Color(0xFF1677FF),
-                                fontWeight: FontWeight.bold,
-                              ),
+                        ),
+                        const SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Dunzo Tourism Pvt Ltd.',
+                              style: TextStyle(color: Color(0xFF868686)),
                             ),
-                          ),
-                        ],
-                      ),
+                            Text(
+                              'Tour & Travel',
+                              style: TextStyle(
+                                  color: Color(0xFF868686), fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Text(
+                      'more',
+                      style: TextStyle(color: Colors.blue),
                     ),
                   ],
                 ),
@@ -222,7 +222,10 @@ class TourDetailsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text('Book Now'),
+                    child: const Text(
+                      'Book Now',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
