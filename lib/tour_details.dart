@@ -215,7 +215,9 @@ class TourDetailsScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _showBookingBottomSheet(context);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFEB5757),
                       shape: RoundedRectangleBorder(
@@ -234,6 +236,160 @@ class TourDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showBookingBottomSheet(BuildContext context) {
+    int memberCount = 2; // Initial member count
+    List<String> memberNames = []; // Initialize as an empty list
+
+    // Pre-fill the list with empty strings for the initial member count
+    for (int i = 0; i < memberCount; i++) {
+      memberNames.add('');
+    }
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor:
+          const Color(0xFF292929), // Set bottom sheet background color
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            // Make the content scrollable
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Member count
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Number of members:',
+                        style: TextStyle(color: Colors.white)),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.remove, color: Colors.white),
+                          onPressed: () {
+                            if (memberCount > 1) {
+                              memberCount--;
+                              memberNames
+                                  .removeLast(); // Remove last member name
+                              (context as Element)
+                                  .markNeedsBuild(); // Refresh the UI
+                            }
+                          },
+                        ),
+                        Text('$memberCount',
+                            style: const TextStyle(color: Colors.white)),
+                        IconButton(
+                          icon: const Icon(Icons.add, color: Colors.white),
+                          onPressed: () {
+                            memberCount++;
+                            memberNames.add(''); // Add a new empty member name
+                            (context as Element)
+                                .markNeedsBuild(); // Refresh the UI
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10), // Spacing
+                // Member input fields
+                for (int i = 0; i < memberCount; i++)
+                  Column(
+                    children: [
+                      _buildMemberInputField('Name of member ${i + 1}',
+                          (value) {
+                        if (i < memberNames.length) {
+                          memberNames[i] = value; // Update the member name
+                        } else {
+                          memberNames
+                              .add(value); // Add new member name if needed
+                        }
+                      }),
+                      const SizedBox(
+                          height: 10), // Spacing between input fields
+                    ],
+                  ),
+                const SizedBox(height: 20), // Spacing before buttons
+                // Book Tickets button
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle booking logic with memberNames
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFEB5757),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Book $memberCount tickets',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10), // Spacing before close button
+                // Close button
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close bottom sheet
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(
+                          0xFF292929), // Set background color to white
+                      side: const BorderSide(
+                          color: Color(0xFFEB5757),
+                          width: 1), // Set border color and width
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
+                      'Close',
+                      style: TextStyle(
+                          color: Color(
+                              0xFFEB5757)), // Set text color to match the border
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildMemberInputField(String hint, Function(String) onChanged) {
+    return Row(
+      children: [
+        Image.asset('lib/images/IdentificationBadge.png', height: 24), // Icon
+        const SizedBox(width: 8),
+        Expanded(
+          child: TextField(
+            onChanged: onChanged,
+            decoration: InputDecoration(
+              hintText: hint,
+              border: const OutlineInputBorder(),
+              filled: true,
+              fillColor: const Color(0xFF3A3A3A), // Background color for input
+            ),
+            style: const TextStyle(color: Colors.white), // Text color
+          ),
+        ),
+      ],
     );
   }
 }
