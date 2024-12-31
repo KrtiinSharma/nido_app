@@ -432,70 +432,92 @@ class BookingSummaryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF292929),
       appBar: AppBar(
-        title: const Text('Booking Summary'),
+        title: const Text('Booking Summary',
+            style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xFF292929),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Tour Details Box
-            Container(
-              width: 342,
-              height: 161,
-              decoration: BoxDecoration(
-                color: const Color(0xFF3A3A3A),
-                borderRadius: BorderRadius.circular(8),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Tour Details Box
+              Container(
+                width: 342,
+                height: 161,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF3A3A3A),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tourTitle,
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(Icons.location_on, color: Colors.white),
+                        const SizedBox(width: 4),
+                        Text(
+                          location,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(Icons.calendar_today, color: Colors.white),
+                        const SizedBox(width: 4),
+                        Text(
+                          date,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(Icons.access_time, color: Colors.white),
+                        const SizedBox(width: 4),
+                        Text(
+                          duration,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tourTitle,
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      const Icon(Icons.location_on, color: Colors.white),
-                      const SizedBox(width: 4),
-                      Text(
-                        location,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    date,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    duration,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            // Members Box
-            const Text(
-              'Members',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            Column(
-              children: memberNames.map((name) {
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
+              // Members Box
+              const Text(
+                'Members',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              const SizedBox(height: 8),
+              Column(
+                children: memberNames.map((name) {
+                  return Container(
+                    width: 342,
+                    height: 50,
+                    margin: const EdgeInsets.only(bottom: 8),
+                    child: Stack(
+                      alignment: Alignment.centerRight,
+                      children: [
+                        TextField(
                           controller: TextEditingController(text: name),
                           decoration: InputDecoration(
                             filled: true,
@@ -504,102 +526,107 @@ class BookingSummaryScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide.none,
                             ),
+                            contentPadding: const EdgeInsets.only(right: 40),
                           ),
                           style: const TextStyle(color: Colors.white),
                         ),
-                      ),
-                      IconButton(
-                        icon: Image.asset('lib/images/X.png', height: 24),
-                        onPressed: () {
-                          // Logic to remove member
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 16),
+                        Positioned(
+                          right: 8,
+                          child: IconButton(
+                            icon: Image.asset('lib/images/X.png', height: 24),
+                            onPressed: () {
+                              // Logic to remove member
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 16),
 
-            // Payment Method Box
-            Container(
-              width: 342,
-              height: 94,
-              decoration: BoxDecoration(
-                color: const Color(0xFF3A3A3A),
-                borderRadius: BorderRadius.circular(8),
+              // Payment Method Box
+              const Text(
+                'Payment method',
+                style: TextStyle(color: Colors.white),
               ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Payment method',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  const Text(
-                    'UPI',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Price Box
-            Container(
-              width: 342,
-              height: 75,
-              decoration: BoxDecoration(
-                color: const Color(0xFF3A3A3A),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '₹$price /Member',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Total Price ₹$price',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  Image.asset('lib/images/CaretDown.png',
-                      height: 24), // Carrot down icon
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Pay Now Button
-            SizedBox(
-              width: 342,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Handle payment logic
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFEB5757),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+              const SizedBox(height: 8),
+              Container(
+                width: 342,
+                height: 94,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF3A3A3A),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Text(
-                  'Pay Now',
-                  style: TextStyle(color: Colors.white),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'UPI',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Image.asset('lib/images/UPI.png', height: 24),
+                  ],
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+
+              // Price Box
+              Container(
+                width: 342,
+                height: 75,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF3A3A3A),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '₹$price /Member',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Total Price ₹$price',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    Image.asset('lib/images/CaretDown.png', height: 24),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Pay Now Button
+              SizedBox(
+                width: 342,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Handle payment logic
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFEB5757),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    'Pay Now',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
