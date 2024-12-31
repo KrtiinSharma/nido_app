@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'upi_payment.dart'; // Import UPI Payment Screen
+import 'card_payment.dart'; // Import Card Payment Screen
+import 'wallet_payment.dart'; // Import Wallet Payment Screen
 
 class TourDetailsScreen extends StatelessWidget {
   final String title;
@@ -669,25 +672,28 @@ class PaymentMethodScreen extends StatelessWidget {
             style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xFF292929),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white), // Back icon
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context); // Navigate back
+            Navigator.pop(context);
           },
         ),
       ),
       body: Center(
-        // Center the content
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center, // Center the column content
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // UPI Box
               GestureDetector(
                 onTap: () {
-                  // Handle UPI payment logic
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            UpiPaymentScreen()), // Navigate to UPI Payment
+                  );
                 },
                 child: Container(
                   width: 342,
@@ -704,7 +710,7 @@ class PaymentMethodScreen extends StatelessWidget {
                         'UPI',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      Image.asset('lib/images/UPI.png', height: 24), // UPI icon
+                      Image.asset('lib/images/UPI.png', height: 24),
                     ],
                   ),
                 ),
@@ -714,7 +720,12 @@ class PaymentMethodScreen extends StatelessWidget {
               // Card Box
               GestureDetector(
                 onTap: () {
-                  // Handle Card payment logic
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            CardPaymentScreen()), // Navigate to Card Payment
+                  );
                 },
                 child: Container(
                   width: 342,
@@ -731,8 +742,7 @@ class PaymentMethodScreen extends StatelessWidget {
                         'Card',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      Image.asset('lib/images/CreditCard.png',
-                          height: 24), // Credit Card icon
+                      Image.asset('lib/images/CreditCard.png', height: 24),
                     ],
                   ),
                 ),
@@ -742,7 +752,12 @@ class PaymentMethodScreen extends StatelessWidget {
               // Wallet Box
               GestureDetector(
                 onTap: () {
-                  // Handle Wallet payment logic
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            WalletPaymentScreen()), // Navigate to Wallet Payment
+                  );
                 },
                 child: Container(
                   width: 342,
@@ -759,8 +774,7 @@ class PaymentMethodScreen extends StatelessWidget {
                         'Wallet',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      Image.asset('lib/images/Wallet.png',
-                          height: 24), // Wallet icon
+                      Image.asset('lib/images/Wallet.png', height: 24),
                     ],
                   ),
                 ),
