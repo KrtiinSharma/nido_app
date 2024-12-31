@@ -323,22 +323,37 @@ class TourDetailsScreen extends StatelessWidget {
                   height: 40,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigate to Booking Summary Screen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BookingSummaryScreen(
-                            memberNames: memberNames,
-                            tourTitle:
-                                'Cherry Blossom Group Tour 2025', // Replace with actual title
-                            date: '2 Dec 2024', // Replace with actual date
-                            location:
-                                'New Delhi', // Replace with actual location
-                            duration: '1 hour', // Replace with actual duration
-                            price: '4,82,952', // Replace with actual price
+                      // Check if all member names are filled
+                      bool allNamesFilled =
+                          memberNames.every((name) => name.isNotEmpty);
+
+                      if (!allNamesFilled) {
+                        // Show a SnackBar if any name is empty
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please fill in all member names.'),
+                            backgroundColor: Colors.red,
                           ),
-                        ),
-                      );
+                        );
+                      } else {
+                        // Navigate to Booking Summary Screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookingSummaryScreen(
+                              memberNames: memberNames,
+                              tourTitle:
+                                  'Cherry Blossom Group Tour 2025', // Replace with actual title
+                              date: '2 Dec 2024', // Replace with actual date
+                              location:
+                                  'New Delhi', // Replace with actual location
+                              duration:
+                                  '1 hour', // Replace with actual duration
+                              price: '4,82,952', // Replace with actual price
+                            ),
+                          ),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFEB5757),
