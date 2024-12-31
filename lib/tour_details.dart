@@ -323,7 +323,22 @@ class TourDetailsScreen extends StatelessWidget {
                   height: 40,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle booking logic with memberNames
+                      // Navigate to Booking Summary Screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingSummaryScreen(
+                            memberNames: memberNames,
+                            tourTitle:
+                                'Cherry Blossom Group Tour 2025', // Replace with actual title
+                            date: '2 Dec 2024', // Replace with actual date
+                            location:
+                                'New Delhi', // Replace with actual location
+                            duration: '1 hour', // Replace with actual duration
+                            price: '4,82,952', // Replace with actual price
+                          ),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFEB5757),
@@ -390,6 +405,203 @@ class TourDetailsScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class BookingSummaryScreen extends StatelessWidget {
+  final List<String> memberNames;
+  final String tourTitle;
+  final String date;
+  final String location;
+  final String duration;
+  final String price;
+
+  const BookingSummaryScreen({
+    Key? key,
+    required this.memberNames,
+    required this.tourTitle,
+    required this.date,
+    required this.location,
+    required this.duration,
+    required this.price,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF292929),
+      appBar: AppBar(
+        title: const Text('Booking Summary'),
+        backgroundColor: const Color(0xFF292929),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Tour Details Box
+            Container(
+              width: 342,
+              height: 161,
+              decoration: BoxDecoration(
+                color: const Color(0xFF3A3A3A),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tourTitle,
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(Icons.location_on, color: Colors.white),
+                      const SizedBox(width: 4),
+                      Text(
+                        location,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    date,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    duration,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Members Box
+            const Text(
+              'Members',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Column(
+              children: memberNames.map((name) {
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: TextEditingController(text: name),
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xFF1D1D1D),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Image.asset('lib/images/X.png', height: 24),
+                        onPressed: () {
+                          // Logic to remove member
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 16),
+
+            // Payment Method Box
+            Container(
+              width: 342,
+              height: 94,
+              decoration: BoxDecoration(
+                color: const Color(0xFF3A3A3A),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Payment method',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  const Text(
+                    'UPI',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Price Box
+            Container(
+              width: 342,
+              height: 75,
+              decoration: BoxDecoration(
+                color: const Color(0xFF3A3A3A),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '₹$price /Member',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Total Price ₹$price',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  Image.asset('lib/images/CaretDown.png',
+                      height: 24), // Carrot down icon
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Pay Now Button
+            SizedBox(
+              width: 342,
+              height: 40,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle payment logic
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFEB5757),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  'Pay Now',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
