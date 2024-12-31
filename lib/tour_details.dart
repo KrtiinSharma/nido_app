@@ -626,7 +626,14 @@ class BookingSummaryScreen extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle payment logic
+                    // Navigate to Payment Method Screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            PaymentMethodScreen(price: price), // Pass the price
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFEB5757),
@@ -639,6 +646,136 @@ class BookingSummaryScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PaymentMethodScreen extends StatelessWidget {
+  final String price;
+
+  const PaymentMethodScreen({Key? key, required this.price}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF292929),
+      appBar: AppBar(
+        title: const Text('Select Payment Method',
+            style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color(0xFF292929),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white), // Back icon
+          onPressed: () {
+            Navigator.pop(context); // Navigate back
+          },
+        ),
+      ),
+      body: Center(
+        // Center the content
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Center the column content
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // UPI Box
+              GestureDetector(
+                onTap: () {
+                  // Handle UPI payment logic
+                },
+                child: Container(
+                  width: 342,
+                  height: 94,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF3A3A3A),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'UPI',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Image.asset('lib/images/UPI.png', height: 24), // UPI icon
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Card Box
+              GestureDetector(
+                onTap: () {
+                  // Handle Card payment logic
+                },
+                child: Container(
+                  width: 342,
+                  height: 94,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF3A3A3A),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Card',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Image.asset('lib/images/CreditCard.png',
+                          height: 24), // Credit Card icon
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Wallet Box
+              GestureDetector(
+                onTap: () {
+                  // Handle Wallet payment logic
+                },
+                child: Container(
+                  width: 342,
+                  height: 94,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF3A3A3A),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Wallet',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Image.asset('lib/images/Wallet.png',
+                          height: 24), // Wallet icon
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Price Information
+              Text(
+                '₹$price /Member',
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Total Price ₹$price',
+                style: const TextStyle(color: Colors.white, fontSize: 16),
               ),
             ],
           ),
