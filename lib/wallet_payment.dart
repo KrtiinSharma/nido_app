@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'order_summary.dart'; // Import the Order Summary Screen
 
 class WalletPaymentScreen extends StatelessWidget {
   @override
@@ -17,9 +18,31 @@ class WalletPaymentScreen extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: const Text(
-          'Wallet Payment Method',
-          style: TextStyle(color: Colors.white, fontSize: 24),
+        child: ElevatedButton(
+          onPressed: () {
+            // Simulate successful payment and navigate to Order Summary
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OrderSummaryScreen(
+                  orderNumber: '1234', // Example order number
+                  tickets: [
+                    {
+                      'tour': 'Cherry Blossom Group Tour 2025',
+                      'name': 'John Doe',
+                      'ticketNumber': '78626'
+                    },
+                    {
+                      'tour': 'Cherry Blossom Group Tour 2025',
+                      'name': 'John Doe',
+                      'ticketNumber': '87651'
+                    },
+                  ],
+                ),
+              ),
+            );
+          },
+          child: const Text('Complete Payment'),
         ),
       ),
     );
