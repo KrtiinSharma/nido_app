@@ -1,0 +1,40 @@
+{
+  "tours": [
+    {
+      "id": 1,
+      "name": "Cherry Blossom Group Tour 2025",
+      "location": "Tokyo, Japan",
+      "date": "2025-03-25",
+      "duration": "7 days",
+      "description": "Experience the beauty of cherry blossoms in full bloom. This tour includes visits to famous parks and gardens.",
+      "price": "₹1500",
+      "image": "lib/images/eiffel-tower-night-stockcake_1.png",
+      "itinerary": [
+        "Day 1: Arrival in Tokyo",
+        "Day 2: Visit Ueno Park",
+        "Day 3: Explore Shinjuku Gyoen",
+        "Day 4: Day trip to Mount Fuji",
+        "Day 5: Shopping in Harajuku",
+        "Day 6: Cultural experience in Asakusa",
+        "Day 7: Departure"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "City Lights Tour",
+      "location": "New York, USA",
+      "date": "2025-05-15",
+      "duration": "5 days",
+      "description": "Explore the vibrant city lights of New York. Enjoy guided tours of iconic landmarks and attractions.",
+      "price": "₹1200",
+      "image": "lib/images/eiffel-tower-night-stockcake_2.png",
+      "itinerary": [
+        "Day 1: Arrival in New York",
+        "Day 2: Visit Times Square",
+        "Day 3: Statue of Liberty Tour",
+        "Day 4: Central Park Exploration",
+        "Day 5: Departure"
+      ]
+    }
+  ]
+} 

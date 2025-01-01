@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
+import 'dart:convert';
 import 'bookings.dart';
 import 'account.dart';
 import 'payment_history.dart';
@@ -11,6 +13,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,6 +38,27 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
+  List<dynamic> tours = [];
+  List<dynamic> members = [];
+  List<dynamic> paymentMethods = [];
+  Map<String, dynamic> messages = {};
+
+  @override
+  void initState() {
+    super.initState();
+    loadJsonData();
+  }
+
+  Future<void> loadJsonData() async {
+    final String response = await rootBundle.loadString('assets/data.json');
+    final data = await json.decode(response);
+    setState(() {
+      tours = data['tours'];
+      members = data['members'];
+      paymentMethods = data['payment']['methods'];
+      messages = data['messages'];
+    });
+  }
 
   void _onItemTapped(int index) {
     setState(() {

@@ -1,0 +1,56 @@
+{
+  "tours": [
+    {
+      "id": 1,
+      "name": "Cherry Blossom Group Tour 2025",
+      "location": "Tokyo, Japan",
+      "date": "2025-03-25",
+      "duration": "7 days",
+      "description": "Experience the beauty of cherry blossoms in full bloom.",
+      "price": "1500",
+      "image": "lib/images/eiffel-tower-night-stockcake_1.png"
+    },
+    {
+      "id": 2,
+      "name": "City Lights Tour",
+      "location": "New York, USA",
+      "date": "2025-05-15",
+      "duration": "5 days",
+      "description": "Explore the vibrant city lights of New York.",
+      "price": "1200",
+      "image": "alib/images/eiffel-tower-night-stockcake_2.png"
+    }
+  ],
+  "members": [
+    {
+      "name": "John Doe"
+    },
+    {
+      "name": "Jane Smith"
+    }
+  ],
+  "payment": {
+    "methods": [
+      {
+        "id": 1,
+        "name": "UPI",
+        "description": "Pay using UPI for a quick and secure transaction."
+      },
+      {
+        "id": 2,
+        "name": "Credit Card",
+        "description": "Use your credit card for easy payment."
+      },
+      {
+        "id": 3,
+        "name": "Wallet",
+        "description": "Pay using your digital wallet."
+      }
+    ]
+  },
+  "messages": {
+    "thankYou": "Thank you for your purchase!",
+    "orderSummary": "Here is your order summary.",
+    "error": "An error occurred. Please try again."
+  }
+} 
