@@ -15,29 +15,29 @@ app.use(bodyParser.json());
 let users = [];
 
 // Signup endpoint
-app.post("/api/signup", (req, res) => {
-  const { mobile, name, email, password } = req.body;
+// app.post("/api", (req, res) => {
+//   const { mobile, name, email, password } = req.body;
 
-  // Check if user already exists
-  const existingUser = users.find((user) => user.mobile === mobile);
-  if (existingUser) {
-    return res.status(400).json({ message: "User already exists" });
-  }
+//   // Check if user already exists
+//   const existingUser = users.find((user) => user.mobile === mobile);
+//   if (existingUser) {
+//     return res.status(400).json({ message: "User already exists" });
+//   }
 
-  // Hash the password
-  const hashedPassword = bcrypt.hashSync(password, 8);
+//   // Hash the password
+//   const hashedPassword = bcrypt.hashSync(password, 8);
 
-  // Create new user
-  const newUser = { mobile, name, email, password: hashedPassword };
-  users.push(newUser);
+//   // Create new user
+//   const newUser = { mobile, name, email, password: hashedPassword };
+//   users.push(newUser);
 
-  // Generate JWT token
-  const token = jwt.sign({ mobile }, SECRET_KEY, { expiresIn: "1h" });
-  res.status(201).json({ token });
-});
+//   // Generate JWT token
+//   const token = jwt.sign({ mobile }, SECRET_KEY, { expiresIn: "1h" });
+//   res.status(201).json({ token });
+// });
 
 // Login endpoint
-app.post("/api/login", (req, res) => {
+app.post("/main/api/auth/token/", (req, res) => {
   const { mobile, password } = req.body;
 
   // Find user

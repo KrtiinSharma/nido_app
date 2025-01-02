@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'auth_service.dart';
-import 'main.dart'; // Import main.dart to access DashboardScreen
 import 'signup_screen.dart';
+import 'main.dart'; // Import main.dart to access DashboardScreen
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,13 +10,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final AuthService _authService = AuthService();
-  final TextEditingController _mobileController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   void _login() async {
     try {
       final token = await _authService.login(
-        _mobileController.text,
+        _usernameController.text,
         _passwordController.text,
       );
 
@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // Navigate to DashboardScreen on successful login
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
         );
       } else {
         showErrorDialog("Login failed. Please try again.");
@@ -38,12 +38,14 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Error'),
+        title: Text('Error'),
         content: Text(message),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
           ),
         ],
       ),
@@ -59,18 +61,19 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             TextField(
-              controller: _mobileController,
-              decoration: const InputDecoration(labelText: 'Mobile Number'),
+              controller: _usernameController,
+              decoration:
+                  InputDecoration(labelText: 'Username (Mobile Number)'),
             ),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _login,
-              child: const Text('Login'),
+              child: Text('Login'),
             ),
             TextButton(
               onPressed: () {
@@ -79,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   MaterialPageRoute(builder: (context) => SignupScreen()),
                 );
               },
-              child: const Text('Create Account'),
+              child: Text('Create Account'),
             ),
           ],
         ),
